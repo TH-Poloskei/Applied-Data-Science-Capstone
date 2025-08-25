@@ -45,13 +45,13 @@ def get_pie_chart(entered_site):
     if entered_site == 'ALL':
         fig = px.pie(spacex_df, values='class', 
         names='Launch Site', 
-        title='title')
+        title='Ratio of successful launches from all the sites')
         return fig
     else:
         # return the outcomes piechart for a selected site
         fig = px.pie(spacex_df[spacex_df['Launch Site'] == entered_site], 
         names='class', 
-        title='title')
+        title=f'Ratio of successful to non-successful landings launched from {entered_site}')
         return fig
 # TASK 4:
 # Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
@@ -61,11 +61,11 @@ def get_scatter_chart(entered_site, entered_range):
     print(entered_range, type(entered_range))
     filtered_df = spacex_df[(spacex_df['Payload Mass (kg)'] >= entered_range[0]) & (spacex_df['Payload Mass (kg)'] <= entered_range[1])]
     if entered_site == 'ALL':
-        fig = px.scatter(spacex_df, y='class', x='Payload Mass (kg)', color="Booster Version Category", title='title')
+        fig = px.scatter(spacex_df, y='class', x='Payload Mass (kg)', color="Booster Version Category", title='Payload Mass vs landing outcome class')
         return fig
     else:
         # return the outcomes piechart for a selected site
-        fig = px.scatter(filtered_df, x='Payload Mass (kg)', color="Booster Version Category", title='title')
+        fig = px.scatter(filtered_df, y='class', x='Payload Mass (kg)', color="Booster Version Category", title='Payload Mass vs landing outcome class')
         return fig
 # Run the app
 if __name__ == '__main__':
